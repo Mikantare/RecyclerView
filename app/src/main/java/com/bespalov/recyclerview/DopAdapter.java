@@ -21,7 +21,9 @@ private List<Dop> dops;
         notifyDataSetChanged();
     }
 
-
+    public List<Dop> getDops() {
+        return dops;
+    }
 
     @NonNull
     @Override

@@ -2,12 +2,13 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:padding="4dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/imageViewLogo"
@@ -24,25 +25,27 @@
 
         <TextView
             android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:layout_marginTop="10dp"
             android:text="TextView1"
             android:textSize="25sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewLogo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="27dp"
             android:layout_marginTop="8dp"
             android:text="TextView"
             android:textSize="15sp"
             android:textStyle="italic"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageViewLogo"
             app:layout_constraintTop_toBottomOf="@+id/textViewName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
