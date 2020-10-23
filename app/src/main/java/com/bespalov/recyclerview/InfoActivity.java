@@ -21,10 +21,12 @@ public class InfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
         Intent intent = getIntent();
-        imageViewLogoInfo = findViewById(R.id.imageViewLogo);
+        imageViewLogoInfo = findViewById(R.id.imageViewLogoInfo);
         textViewNameINfo = findViewById(R.id.textViewNameINfo);
-        textViewDescriptionInfo = findViewById(R.id.textViewDescriptionInfo);
-        imageViewLogoInfo.setImageResource(intent.getIntExtra("image",0));
+        textViewDescriptionInfo = findViewById(R.id.textViewDescriptionInfo);//
+        int image = (intent.getIntExtra("image", 0));
+        Toast.makeText(this, "" + image, Toast.LENGTH_SHORT).show();
+        imageViewLogoInfo.setImageResource(image);
         textViewNameINfo.setText(intent.getStringExtra("name"));
         textViewDescriptionInfo.setText(intent.getStringExtra("info"));
 

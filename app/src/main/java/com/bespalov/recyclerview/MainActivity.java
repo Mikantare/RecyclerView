@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -241,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
                 intent.putExtra("image", dops.get(viewHolder.getAdapterPosition()).getImageRec() );
+                Toast.makeText(MainActivity.this, "" + dops.get(viewHolder.getAdapterPosition()).getImageRec(), Toast.LENGTH_SHORT).show();
                 intent.putExtra("name", dops.get(viewHolder.getAdapterPosition()).getName() );
                 intent.putExtra("info", dops.get(viewHolder.getAdapterPosition()).getInfo() );
                 startActivity(intent);
