@@ -25,14 +25,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         recyclerView = findViewById(R.id.recyclerView);
-        adapter = new DopAdapter();
+        initDop();
+        adapter = new DopAdapter(dops,this);
+        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper (new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
+                intent.putExtra("image", dops.get(viewHolder.getAdapterPosition()).getImageRec() );
+                Toast.makeText(MainActivity.this, "" + dops.get(viewHolder.getAdapterPosition()).getImageRec(), Toast.LENGTH_SHORT).show();
+                intent.putExtra("name", dops.get(viewHolder.getAdapterPosition()).getName() );
+                intent.putExtra("info", dops.get(viewHolder.getAdapterPosition()).getInfo() );
+                startActivity(intent);
+
+            }
+        });
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void initDop () {
         dops = new ArrayList<>();
-
-
-
-
-
         Dop dop = new Dop(R.drawable.kovrik,"Ковры в салон (полиуретан)","Высокие борта эффективно защищают багажный отсек от поподания грязи и влаги" +
                 "\nТекстура ковра препятствует скольжению", "Коврики 3D в салон CHERY Tiggo 7, 2017->, фург., (Европа), 4 шт. (полиуретан)\n" +
                 "Коврики 3D в салон CHERY Tiggo 4, 2018->, кросс., 4 шт. (полиуретан)\n" +
@@ -45,15 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 "Коврики в салон CHERY B14 06/2006->, 5 шт. (полиуретан)\n" +
                 "Коврики в салон CHERY Crosseastar , 2011-> 4 шт. (полиуретан)\n"+
                 "Коврики в салон CHERY Crosseastar , 2011-> 1 шт. (полиуретан)\n" +
-                        "Коврики в салон CHERY Amulet 10/2003-> (полиуретан)\n" +
-                        "Коврики в салон CHERY Fora A-520 05/2006-> сед. (полиуретан)\n" +
-                        "Коврики 3D в салон CHERY Kimo, 01/2008-> 4шт.( полиуретан)\n" +
-                        "Коврики в салон CHERY M11 2010->, 4 шт. (полиуретан)\n" +
-                        "Коврики в салон CHERY QQ6 (борт, чёрные, полиуретан)\n" +
-                        "Коврики 3D в салон CHERY Tiggo 01/2006-2013 (полиуретан)\n" +
-                        "Коврики 3D в салон CHERY Tiggo, 2013-> 4 шт. (полиуретан)\n" +
-                        "Коврики 3D в салон CHERY Indis, 2011-> 4 шт.(полиуретан)\n"
-                );
+                "Коврики в салон CHERY Amulet 10/2003-> (полиуретан)\n" +
+                "Коврики в салон CHERY Fora A-520 05/2006-> сед. (полиуретан)\n" +
+                "Коврики 3D в салон CHERY Kimo, 01/2008-> 4шт.( полиуретан)\n" +
+                "Коврики в салон CHERY M11 2010->, 4 шт. (полиуретан)\n" +
+                "Коврики в салон CHERY QQ6 (борт, чёрные, полиуретан)\n" +
+                "Коврики 3D в салон CHERY Tiggo 01/2006-2013 (полиуретан)\n" +
+                "Коврики 3D в салон CHERY Tiggo, 2013-> 4 шт. (полиуретан)\n" +
+                "Коврики 3D в салон CHERY Indis, 2011-> 4 шт.(полиуретан)\n"
+        );
         Dop dop1 = new Dop(R.drawable.kovrik_b,"Ковры в багажник (полиуретан)","Высокие борта эффективно защищают багажный отсек от поподания грязи и влаги" +
                 "\nИдеальная геометрия ковра повторяет поверхность багажногоотсека" +
                 "\nСохраняет физические свойства при любых температурныхрежимах эксплуатации", "Коврик в багажник CHERY Tiggo 7, 2017-> кросс., 1 шт. (полиуретан)\n" +
@@ -75,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 "Коврик в багажник CHERY Tiggo 01/2006-2013, 2013-> (полиуретан)\n" +
                 "Коврик в багажник CHERY Indis, 2011-> хб. (полиуретан)");
         Dop dop2 = new Dop(R.drawable.kovri_t,"Ковры текстильные в салон и багажник","Перемычка – дополнительная защита салона заднего ряда сидений автомобиля" +
-               "\nИИдеальная геометрия ковра гармонично вписывается в интерьер автомобиля" +
+                "\nИИдеальная геометрия ковра гармонично вписывается в интерьер автомобиля" +
                 "\nПлотный и высокий ворс увеличивает срок службы ковра", "Коврики в салон CHERY Tiggo 7, 2017->, кросс., 5 шт. (текстиль)\n" +
                 "Коврик в багажник CHERY Tiggo 7, 2017->, кросс., 1 шт. (текстиль)\n" +
                 "Коврики в салон CHERY Tiggo (T21) 2014-2017, 2017->, 5 шт. (текстиль)\n" +
@@ -229,27 +247,5 @@ public class MainActivity extends AppCompatActivity {
         dops.add(dop5);
         dops.add(dop6);
         dops.add(dop7);
-
-        recyclerView.setAdapter(adapter);
-        adapter.setDops(dops);
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper (new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                Intent intent = new Intent(getApplicationContext(),InfoActivity.class);
-                intent.putExtra("image", dops.get(viewHolder.getAdapterPosition()).getImageRec() );
-                Toast.makeText(MainActivity.this, "" + dops.get(viewHolder.getAdapterPosition()).getImageRec(), Toast.LENGTH_SHORT).show();
-                intent.putExtra("name", dops.get(viewHolder.getAdapterPosition()).getName() );
-                intent.putExtra("info", dops.get(viewHolder.getAdapterPosition()).getInfo() );
-                startActivity(intent);
-
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
     }
 }
